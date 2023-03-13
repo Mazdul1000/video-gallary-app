@@ -12,7 +12,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/video/:videoId" element={<Video />} />
+                <Route path="/videos/:videoId" element={<Video />} />
                 <Route path="/video/add" element={<AddVideo />} />
                 <Route path="/video/edit/:videoId" element={<EditVideo />} />
             </Routes>

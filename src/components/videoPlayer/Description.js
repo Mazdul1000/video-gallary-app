@@ -19,7 +19,7 @@ const Description = () => {
                     <div className="shrink-0">
                         <AiTwotoneEdit />
                     </div>
-                    <Link to="/videos/edit/1">
+                    <Link to="/video/edit/1">
                         <span className="text-sm leading-[1.7142857] text-slate-600 cursor-pointer">
                             Edit
                         </span>

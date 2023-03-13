@@ -11,12 +11,17 @@ const Navbar = () => {
         <nav className="border-gray-200 px-2 mx-auto mb-10 shadow-md">
   <div className="container mx-auto flex flex-wrap items-center h-20 justify-between">
   <div className='flex items-center space-x-8'>
-      <AiOutlineMenu />
-  <a href='#' className="flex">
-      
-      <img className='h-10' src={logo} alt="" />
+  <button>
+  <AiOutlineMenu className='text-xl font-bold'/>
+  </button>
+<Link to="/" className='flex'>
+ <img className='h-10' src={logo} alt="" />
       <span className="self-center text-lg font-semibold whitespace-nowrap">Video App</span>
-  </a>
+</Link>
+  {/* <a href='#' className="flex">
+      
+     
+  </a> */}
   </div>
 
 
@@ -30,9 +35,10 @@ const Navbar = () => {
   </div>
 
   <div>
-  <button>
-    <IoIosAddCircle className='text-4xl' />
-    </button>
+<Link to="/video/add">
+<IoIosAddCircle className='text-4xl' />
+</Link>
+
   </div>
   
   </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {AiTwotoneEdit} from 'react-icons/ai';
 import {RiDeleteBin6Line} from 'react-icons/ri';
 
-const Description = ({video:{title, date, description}}) => {
+const Description = ({video:{title, date, description, id}}) => {
     return (
         <div>
         <h1 className="text-lg font-semibold tracking-tight text-slate-800">
@@ -19,7 +19,7 @@ const Description = ({video:{title, date, description}}) => {
                     <div className="shrink-0">
                         <AiTwotoneEdit />
                     </div>
-                    <Link to="/video/edit/1">
+                    <Link to={`/video/edit/${id}`}>
                         <span className="text-sm leading-[1.7142857] text-slate-600 cursor-pointer">
                             Edit
                         </span>

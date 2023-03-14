@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useMatch } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useEditVideoMutation } from '../../features/api/apiSlice';
 import TextInput from '../ui/navbar/TextInput';
 import TextArea from '../ui/TextArea';
 
-const Form = ({video}) => {
 
+const Form = ({video}) => {
+const navigate = useNavigate();
 const match = useMatch(`video/edit/${video?.id}`)
 
+const [editVideo, { isLoading, isError, isSuccess}] = useEditVideoMutation();
 const [title, setTitle] = useState("");
 const [author, setAuthor] = useState("");
 const [views, setViews] = useState("");
@@ -15,6 +19,18 @@ const [description, setDescription] = useState("");
 const [duration, setDuration] = useState("");
 const [date, setDate] = useState("")
 const [link, setLink] = useState("")
+
+const resetForm = () => {
+    setTitle("");
+    setAuthor("");
+    setViews("");
+    setThumbnail("");
+    setDescription("");
+    setDuration("");
+    setDate("");
+    setLink("");
+}
+
 
 useEffect(() => {
     if(match){
@@ -44,9 +60,31 @@ const handleEdit = (e) => {
         link,
         description
     }
+    editVideo({data, id: video.id})
+         .then((data) => {
+            console.log(data)
+             navigate(`/videos/${video.id}`);
+             resetForm();
+             toast.success('Video info is updated!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                toastId: "notify edit success"
+                });    
+         })
 
-    console.log(data);
+    
+
 }
+/* if(isSuccess){        
+          
+    } */
+
 
     return (
         <form onSubmit={handleEdit}>

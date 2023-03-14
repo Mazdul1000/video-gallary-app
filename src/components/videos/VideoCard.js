@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const VideoCard = ({video}) => {
-   const {title, author, thumbnail, id, views, duration, avatar} = video
+   const {title, author, thumbnail, id, views, duration, avatar, date} = video
     return (
         <div className="col-span-12 sm:col-span-6 md:col-span-3 duration-300 hover:scale-[1.03]">
         <div className="w-full flex flex-col">
@@ -37,7 +38,7 @@ const VideoCard = ({video}) => {
                         {author}
                     </span>
                     <p className="text-gray-400 text-xs">
-                        {views} views . 3d ago
+                        {views} views . {moment(date).fromNow()}
                     </p>
                 </div>
             </div>

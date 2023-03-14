@@ -37,6 +37,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Videos", "Video"]
     }),
+    addNewVideo : builder.mutation({
+        query: (data) => ({
+            url: '/videos',
+            method: 'POST',
+            body: data
+        }),
+        invalidatesTags: ["Videos"]
+    })
   }),
 });
 
@@ -45,4 +53,5 @@ export const {
   useGetSingleVideoQuery,
   useEditVideoMutation,
   useGetRelatedVideosQuery,
+  useAddNewVideoMutation
 } = apiSlice;

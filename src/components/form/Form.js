@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useEditVideoMutation } from '../../features/api/apiSlice';
+import { useAddNewVideoMutation, useEditVideoMutation } from '../../features/api/apiSlice';
 import TextInput from '../ui/navbar/TextInput';
 import TextArea from '../ui/TextArea';
 
@@ -10,7 +10,8 @@ const Form = ({video}) => {
 const navigate = useNavigate();
 const match = useMatch(`video/edit/${video?.id}`)
 
-const [editVideo, { isLoading, isError, isSuccess}] = useEditVideoMutation();
+const [editVideo, { isLoading:editLoading, isError:editError, isSuccess:editSuccess}] = useEditVideoMutation();
+const [addNewVideo ,{ isLoading, isError, isSuccess}] = useAddNewVideoMutation();
 const [title, setTitle] = useState("");
 const [author, setAuthor] = useState("");
 const [views, setViews] = useState("");
@@ -65,34 +66,41 @@ const handleEdit = (e) => {
             console.log(data)
              navigate(`/videos/${video.id}`);
              resetForm();
-             toast.success('Video info is updated!', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                toastId: "notify edit success"
-                });    
+             toast.success('Video info is updated!');    
          })
-
-    
-
 }
-/* if(isSuccess){        
-          
-    } */
+
+const handleAdd = (e) => {
+    e.preventDefault();
+
+    const data={
+        title,
+        date,
+        author,
+        duration,
+        views,
+        thumbnail,
+        link,
+        description
+    }
+    addNewVideo(data)
+         .then((data) => {
+            console.log(data)
+             navigate(`/`);
+             resetForm();
+             toast.success('New video has been added');    
+         })
+}
+
 
 
     return (
-        <form onSubmit={handleEdit}>
+        <form onSubmit={match ? handleEdit : handleAdd}>
             <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                            <TextInput title="Video Title" />
+                            <TextInput title="Video Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">
@@ -108,7 +116,7 @@ const handleEdit = (e) => {
                         </div>
 
                         <div className="col-span-6">
-                            <TextInput title="Thumbnail link" value={thumbnail} onChange={(e) => setLink(e.target.value)}/>
+                            <TextInput title="Thumbnail link" value={thumbnail} onChange={(e) => setThumbnail(e.target.value)}/>
                         </div>
 
                         <div className="col-span-6 sm:col-span-6 lg:col-span-2">

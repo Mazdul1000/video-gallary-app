@@ -1,7 +1,15 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Form from '../components/form/Form';
+import { useGetSingleVideoQuery } from '../features/api/apiSlice';
 
 const EditVideo = () => {
+    const {videoId} = useParams();
+    const { data:video, isLoading, isError } = useGetSingleVideoQuery(videoId);
+    if(isLoading){
+        return <div>Loading...</div>
+    }
+    
     return (
         <div className="max-w-7xl mx-auto px-5 lg:px-0">
         <div className="w-full">
@@ -14,7 +22,7 @@ const EditVideo = () => {
                 </p>
             </div>
             <div className="mt-5 md:mt-0 md:col-span-2">
-                <Form />
+                <Form video={video}/>
             </div>
         </div>
     </div>

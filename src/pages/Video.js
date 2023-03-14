@@ -21,7 +21,7 @@ const Video = () => {
                         <Description video={video}/>
                     </div>
 
-                    <RelatedVideos />
+                    <RelatedVideos title={video.title} id={video.id}/>
                 </div>
             </div>
         </section>
